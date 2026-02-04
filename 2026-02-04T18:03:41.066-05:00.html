@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAF Strength & Fitness - Adults Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: hsl(64, 100%, 50%);
+      --primary-foreground: hsl(0, 0%, 5%);
+      --background: hsl(0, 0%, 8%);
+      --foreground: hsl(0, 0%, 98%);
+      --card: hsl(0, 0%, 10%);
+      --border: hsl(0, 0%, 20%);
+      --muted-foreground: hsl(0, 0%, 65%);
+      --secondary: hsl(0, 0%, 15%);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--background); color: var(--foreground); line-height: 1.6; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .text-primary { color: var(--primary); }
+    .text-muted { color: var(--muted-foreground); }
+    .btn-hero { background: var(--primary); color: var(--primary-foreground); padding: 16px 40px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; transition: all 0.3s; box-shadow: 0 0 30px hsla(64, 100%, 50%, 0.3); }
+    .btn-hero:hover { transform: scale(1.05); box-shadow: 0 0 40px hsla(64, 100%, 50%, 0.5); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; }
+    
+    /* Header */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: hsla(0, 0%, 8%, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    header nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 1200px; margin: 0 auto; }
+    .logo { font-size: 24px; font-weight: 900; color: var(--primary); }
+    
+    /* Hero */
+    .hero { min-height: 100vh; display: flex; align-items: center; background: linear-gradient(to right, hsla(0,0%,8%,0.95), hsla(0,0%,8%,0.4)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920') center/cover; padding-top: 80px; }
+    .hero h1 { font-size: clamp(48px, 8vw, 96px); font-weight: 900; line-height: 1; margin-bottom: 24px; }
+    .hero p { font-size: 18px; color: var(--muted-foreground); max-width: 500px; margin-bottom: 32px; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; background: var(--secondary); padding: 8px 16px; border-radius: 999px; font-size: 14px; margin-bottom: 32px; }
+    .badge-dot { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    
+    /* Stats */
+    .stats { padding: 64px 0; background: var(--secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; text-align: center; }
+    .stat-value { font-size: 48px; font-weight: 900; color: var(--primary); }
+    .stat-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted-foreground); }
+    
+    /* Sections */
+    section { padding: 96px 0; }
+    .section-header { text-align: center; max-width: 700px; margin: 0 auto 64px; }
+    .section-label { color: var(--primary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
+    .section-title { font-size: clamp(32px, 5vw, 48px); font-weight: 900; margin-top: 16px; }
+    
+    /* Pain Points */
+    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 48px; align-items: center; }
+    .pain-list { display: flex; flex-direction: column; gap: 24px; }
+    .pain-item { display: flex; gap: 16px; }
+    .pain-bar { width: 4px; background: var(--primary); border-radius: 4px; flex-shrink: 0; }
+    .pain-item h3 { font-weight: 700; margin-bottom: 4px; }
+    .pain-item p { font-size: 14px; color: var(--muted-foreground); }
+    
+    /* Method Cards */
+    .method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .method-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: border-color 0.3s; }
+    .method-card:hover { border-color: hsla(64, 100%, 50%, 0.5); }
+    .method-card img { width: 100%; height: 200px; object-fit: cover; }
+    .method-card-content { padding: 24px; }
+    .method-card h3 { font-weight: 700; margin-bottom: 8px; }
+    .method-card p { color: var(--muted-foreground); font-size: 14px; }
+    
+    /* Testimonials */
+    .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+    .testimonial-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; }
+    .testimonial-card blockquote { font-size: 18px; margin-bottom: 24px; }
+    .testimonial-footer { border-top: 1px solid var(--border); padding-top: 24px; }
+    .testimonial-name { font-weight: 700; }
+    .testimonial-result { color: var(--primary); font-size: 14px; font-weight: 500; margin-top: 8px; }
+    
+    /* Timeline */
+    .timeline { display: flex; flex-direction: column; gap: 32px; }
+    .timeline-item { padding-left: 32px; border-left: 2px solid var(--border); position: relative; }
+    .timeline-item::before { content: ''; position: absolute; left: -8px; top: 0; width: 14px; height: 14px; background: var(--primary); border-radius: 50%; }
+    .timeline-weeks { color: var(--primary); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
+    .timeline-title { font-size: 24px; font-weight: 700; margin: 8px 0 16px; }
+    .timeline-item ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .timeline-item li { color: var(--muted-foreground); display: flex; gap: 8px; }
+    .timeline-item li::before { content: '•'; color: var(--primary); }
+    
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: 16px; max-width: 700px; margin: 0 auto; }
+    .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .faq-question { font-weight: 700; margin-bottom: 12px; }
+    .faq-answer { color: var(--muted-foreground); font-size: 14px; }
+    
+    /* Location */
+    .location-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 48px; align-items: center; }
+    .location-cards { display: flex; flex-direction: column; gap: 16px; }
+    .location-card { display: flex; gap: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .location-icon { width: 48px; height: 48px; background: hsla(64, 100%, 50%, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .location-card h4 { font-weight: 700; margin-bottom: 4px; }
+    .location-card p { color: var(--muted-foreground); font-size: 14px; }
+    
+    /* CTA */
+    .cta-section { background: linear-gradient(to bottom, var(--background), hsl(0, 0%, 5%)); }
+    .cta-box { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 48px; max-width: 600px; margin: 0 auto; }
+    .cta-box h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .cta-box p { color: var(--muted-foreground); margin-bottom: 32px; }
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+    .form-input { width: 100%; padding: 12px 16px; background: var(--secondary); border: 1px solid var(--border); border-radius: 8px; color: var(--foreground); font-size: 16px; }
+    .form-input:focus { outline: none; border-color: var(--primary); }
+    textarea.form-input { min-height: 120px; resize: vertical; }
+    
+    /* Promise */
+    .promise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; }
+    .promise-card { text-align: center; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; }
+    .promise-icon { width: 64px; height: 64px; background: hsla(64, 100%, 50%, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+    .promise-card h3 { font-weight: 700; margin-bottom: 16px; }
+    .promise-card p { color: var(--muted-foreground); font-size: 14px; }
+    
+    /* Footer */
+    footer { padding: 48px 0; background: hsl(0, 0%, 5%); border-top: 1px solid var(--border); }
+    .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a { color: var(--muted-foreground); text-decoration: none; font-size: 14px; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--primary); }
+    .copyright { color: var(--muted-foreground); font-size: 14px; }
+    
+    /* Utility */
+    img { max-width: 100%; height: auto; }
+    .rounded { border-radius: 16px; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <span class="logo">RAF</span>
+      <button class="btn-hero">Book Free Consultation</button>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        <span>1,000+ Lives Transformed</span>
+      </div>
+      <h1>GET <span class="text-primary">STRONG.</span><br>FEEL <span class="text-primary">ALIVE.</span></h1>
+      <p>Small group strength training for busy adults who want to lose the belly fat, feel confident again, and stay active for their kids and grandkids.</p>
+      <p class="text-primary" style="font-style: italic; margin-bottom: 32px;">✦ Real result: "Dropped 3 dress sizes and keeps up with her kids now"</p>
+      <button class="btn-hero">Book Free Consultation →</button>
+      <div style="display: flex; gap: 24px; margin-top: 24px; font-size: 14px; color: var(--muted-foreground);">
+        <span>● No contracts</span>
+        <span>● Free consultation</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div><div class="stat-value">10+</div><div class="stat-label">Years Experience</div></div>
+        <div><div class="stat-value">1000+</div><div class="stat-label">Lives Transformed</div></div>
+        <div><div class="stat-value">3</div><div class="stat-label">Hours Per Week</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section>
+    <div class="container">
+      <div class="pain-grid">
+        <div>
+          <span class="section-label">We Get It</span>
+          <h2 class="section-title" style="text-align: left;">You've Been Putting Yourself Last <span class="text-primary">For Too Long.</span></h2>
+          <p class="text-muted" style="margin: 24px 0;">You've given everything to your career, your family, your home. But somewhere along the way, you stopped taking care of you. And now? The belly fat, the exhaustion, the frustration when you look in the mirror — it's all catching up.</p>
+          <div class="pain-list">
+            <div class="pain-item"><div class="pain-bar"></div><div><h3>You cringe every time you see a photo of yourself</h3><p>That voice in your head whispers 'How did I let it get this bad?' — and it's stealing your confidence</p></div></div>
+            <div class="pain-item"><div class="pain-bar"></div><div><h3>You've joined gyms before, but never lasted</h3><p>The machines were confusing, nobody helped, and you felt invisible — or worse, judged</p></div></div>
+            <div class="pain-item"><div class="pain-bar"></div><div><h3>Your energy crashes by mid-afternoon</h3><p>You're running on caffeine and willpower, wondering if feeling this tired is just 'your new normal'</p></div></div>
+            <div class="pain-item"><div class="pain-bar"></div><div><h3>You're terrified of becoming a burden to your family</h3><p>You want to dance at your daughter's wedding, chase your grandkids, and actually enjoy the next 30 years</p></div></div>
+          </div>
+          <p style="margin-top: 32px; font-weight: 500;">This isn't your fault. But it <em class="text-primary">is</em> your turning point.</p>
+        </div>
+        <div class="rounded">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800" alt="Personal coaching" style="width: 100%; height: auto;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Method -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">The RAF Method</span>
+        <h2 class="section-title">Quality Coaching That <span class="text-primary">Fits Your Busy Life</span></h2>
+        <p class="text-muted">Only 3 hours a week. No intimidation. Just a supportive community of adults like you—losing belly fat, building strength, and finally feeling confident again.</p>
+      </div>
+      <div class="method-grid">
+        <div class="method-card"><img src="https://images.unsplash.com/photo-1571388208497-71bedc66e932?w=600" alt="Small Groups"><div class="method-card-content"><h3>Small Groups, Zero Intimidation</h3><p>Max 8 people—all adults like you. Everyone's focused on themselves, not judging you.</p></div></div>
+        <div class="method-card"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600" alt="3 Hours"><div class="method-card-content"><h3>Only 3 Hours a Week</h3><p>Fits even the busiest schedule. Three focused sessions designed for maximum results, minimum time.</p></div></div>
+        <div class="method-card"><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=600" alt="Long-Term Plan"><div class="method-card-content"><h3>A Plan That Works Long-Term</h3><p>Not random workouts. A sustainable system that builds week after week so you can stay active for years.</p></div></div>
+        <div class="method-card"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600" alt="Safe Coaching"><div class="method-card-content"><h3>Coaching That Keeps You Safe</h3><p>Every exercise modified to your ability. No risk of injury. Just steady, confident progress.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="results">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Real People. Real Results.</span>
+        <h2 class="section-title">Don't Take Our Word For It—<span class="text-primary">Hear From Them</span></h2>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card"><blockquote>"At 52, I thought my best years were behind me. RAF proved me wrong. I'm stronger now than I was at 35."</blockquote><div class="testimonial-footer"><p class="testimonial-name">Michael R.</p><p class="text-muted">Age 52</p><p class="testimonial-result">Lost 30 lbs in 12 weeks</p></div></div>
+        <div class="testimonial-card"><blockquote>"The small group format is perfect. I get real coaching without feeling overwhelmed."</blockquote><div class="testimonial-footer"><p class="testimonial-name">Jennifer M.</p><p class="text-muted">Age 47</p><p class="testimonial-result">Energy completely transformed</p></div></div>
+        <div class="testimonial-card"><blockquote>"I was intimidated to start. Now I look forward to every session. The coaches meet you exactly where you are."</blockquote><div class="testimonial-footer"><p class="testimonial-name">David K.</p><p class="text-muted">Age 61</p><p class="testimonial-result">Chronic back pain gone</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section>
+    <div class="container">
+      <span class="section-label">Your First 90 Days</span>
+      <h2 class="section-title" style="text-align: left;">Here's What to <span class="text-primary">Expect</span></h2>
+      <p class="text-muted" style="margin: 16px 0 48px;">Lose belly fat. Gain strength. Improve your energy and confidence. Most members see real changes faster than they expected.</p>
+      <div class="timeline">
+        <div class="timeline-item"><span class="timeline-weeks">Week 1-2</span><h3 class="timeline-title">Feel Welcome</h3><ul><li>Meet your coaches and fellow members your age</li><li>Learn safe form on every movement</li><li>Realize this isn't like those intimidating gyms</li><li>Feel sore but surprisingly energized</li></ul></div>
+        <div class="timeline-item"><span class="timeline-weeks">Week 3-4</span><h3 class="timeline-title">Feel Different</h3><ul><li>Wake up with more energy for your day</li><li>Sleep better than you have in years</li><li>Notice your clothes fitting looser</li><li>Actually look forward to your sessions</li></ul></div>
+        <div class="timeline-item"><span class="timeline-weeks">Week 5-8</span><h3 class="timeline-title">Feel Confident</h3><ul><li>Family and coworkers start noticing</li><li>Finally see a difference in the mirror</li><li>Lifting more than you thought possible</li><li>Feel proud of what your body can do</li></ul></div>
+        <div class="timeline-item"><span class="timeline-weeks">Week 9-12+</span><h3 class="timeline-title">Feel Strong for Life</h3><ul><li>Keep up with your kids and grandkids</li><li>Better blood work and health markers</li><li>Less stress, more mental clarity</li><li>This is your lifestyle now—not a phase</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Got Questions?</span>
+        <h2 class="section-title">We've Got <span class="text-primary">Answers</span></h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item"><p class="faq-question">I'm intimidated by gyms. Will I feel out of place?</p><p class="faq-answer">Not at all. That's exactly why most of our members chose RAF. We're a small, welcoming community—not a crowded gym with people showing off. Everyone here is a busy professional or parent, just like you. You'll feel like you belong from day one.</p></div>
+        <div class="faq-item"><p class="faq-question">I haven't exercised in years. Can I really do this?</p><p class="faq-answer">Yes—most of our members started exactly where you are. Every exercise is modified to your current ability. Our coaches specialize in working with adults 40+ who are returning to fitness. You'll never feel pushed beyond what's safe.</p></div>
+        <div class="faq-item"><p class="faq-question">I only have 3 hours a week. Is that enough?</p><p class="faq-answer">Absolutely. Our program is specifically designed for busy professionals with limited time. Three 1-hour sessions per week is all you need. And with flexible morning, midday, and evening classes, you can fit it around your schedule.</p></div>
+        <div class="faq-item"><p class="faq-question">Will this actually help me lose belly fat?</p><p class="faq-answer">Yes. Strength training is proven to be more effective for fat loss than cardio alone—especially for adults 40+. Combined with the nutritional guidance we provide, most members see noticeable changes within 4-6 weeks.</p></div>
+        <div class="faq-item"><p class="faq-question">How quickly will I see results?</p><p class="faq-answer">Most members notice better energy and sleep within 2 weeks. Clothes start fitting differently around week 4. By week 12, expect real changes: less belly fat, improved strength, better blood work, and a confidence boost you can feel.</p></div>
+        <div class="faq-item"><p class="faq-question">Is this worth the investment?</p><p class="faq-answer">That depends on what your health is worth to you. Our members find the coaching, community, and accountability makes this more effective—and affordable—than expensive personal training or programs they never stick with. Book a free consultation to discuss options.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Visit Us</span>
+        <h2 class="section-title">Your New Gym <span class="text-primary">Awaits</span></h2>
+      </div>
+      <div class="location-grid">
+        <div class="location-cards">
+          <div class="location-card"><div class="location-icon">📍</div><div><h4>Location</h4><p>144 Cherry Valley Ave<br>West Hempstead, NY 11552</p></div></div>
+          <div class="location-card"><div class="location-icon">🕐</div><div><h4>Class Times</h4><p>Mon–Fri: 5AM – 9PM<br>Sat–Sun: 7AM – 5PM</p></div></div>
+          <div class="location-card"><div class="location-icon">📞</div><div><h4>Contact</h4><p>(516) 973-1505</p></div></div>
+          <div style="display: flex; gap: 16px; margin-top: 16px;">
+            <button class="btn-hero">Book Free Intro</button>
+          </div>
+        </div>
+        <div class="rounded">
+          <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800" alt="RAF Gym Interior">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Let's Go</span>
+        <h2 class="section-title">Ready to Start? <span class="text-primary">Pick Your Path.</span></h2>
+        <p class="text-muted">Two ways to connect. Same great results. Choose what works for you.</p>
+      </div>
+      <div class="cta-box">
+        <h3>Tell us about your goals</h3>
+        <p>We'll call you back within 24 hours</p>
+        <form>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-input" placeholder="Your name"></div>
+            <div class="form-group"><label class="form-label">Phone</label><input type="tel" class="form-input" placeholder="(555) 123-4567"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="you@example.com"></div>
+          <div class="form-group"><label class="form-label">What are your fitness goals?</label><textarea class="form-input" placeholder="Tell us about what you want to achieve..."></textarea></div>
+          <button type="submit" class="btn-hero" style="width: 100%;">Submit →</button>
+        </form>
+      </div>
+      <div style="display: flex; justify-content: center; gap: 32px; margin-top: 32px; font-size: 14px; color: var(--muted-foreground);">
+        <span>✓ No spam, ever</span>
+        <span>✓ Response in minutes</span>
+        <span>✓ Free consultation</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Promise -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Zero Risk</span>
+        <h2 class="section-title">Our Promise <span class="text-primary">to You</span></h2>
+      </div>
+      <div class="promise-grid">
+        <div class="promise-card"><div class="promise-icon">🛡️</div><h3>No Judgment, No Pressure</h3><p>Your first consultation is free. No hard sell. Just come meet us, see the space, and decide if we're right for you.</p></div>
+        <div class="promise-card"><div class="promise-icon">📅</div><h3>No Long-Term Commitment</h3><p>Month-to-month membership. Life changes—we understand. Cancel anytime if it's not working.</p></div>
+        <div class="promise-card"><div class="promise-icon">⏰</div><h3>Fits Your Busy Schedule</h3><p>Morning, midday, and evening classes. Miss one? Make it up anytime. We know you're juggling a lot.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <span class="logo">RAF <span style="font-size: 12px; font-weight: 400; color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.1em;">Strength & Fitness</span></span>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Contact</a>
+        </div>
+        <p class="copyright">© 2026 RAF Strength & Fitness. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
